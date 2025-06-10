@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "frontend": "cd texting-bot-frontend && ng serve -o",
+    "backend": "cd texting-bot-backend && npm start",
+    "start": "concurrently \"npm run frontend\" \"npm run backend\"",
     "test": "mocha --import=tsx spec/*.ts",
     "build": "tsc"
   },
@@ -14,15 +17,16 @@
     "@types/chai": "^5.0.1",
     "@types/mocha": "^10.0.10",
     "chai": "^5.1.2",
-    "mocha": "^11.1.0",
-    "tsx": "^4.19.2",
-    "typescript": "^5.7.3",
+    "concurrently": "^9.1.2",
     "eslint": "^8.23.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^18.0.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.29.1",
-    "prettier": "^3.4.2"
+    "mocha": "^11.1.0",
+    "prettier": "^3.4.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
   }
 }
