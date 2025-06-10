@@ -4,6 +4,9 @@
   "description": "This is the backend implementation of the design ",
   "main": "server.ts",
   "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "ts-node src/server.ts",
     "test": "npm run test"
   },
   "keywords": [
@@ -12,5 +15,27 @@
     "Javascript"
   ],
   "author": "Olawale Ogunleye",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/body-parser": "^1.19.6",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/helmet": "^0.0.48",
+    "@types/jest": "^29.5.14",
+    "@types/morgan": "^1.9.10",
+    "@types/node": "^24.0.0",
+    "jest": "^30.0.0",
+    "supertest": "^7.1.1",
+    "ts-jest": "^29.3.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "morgan": "^1.10.0"
+  }
 }
