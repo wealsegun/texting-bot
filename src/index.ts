@@ -36,30 +36,41 @@ import { ParseTextBotCommandOutput, Group } from './interfaces';
  * @param rawInput
  */
 
-export const parseTextBotCommand = (rawInput: string, groups: Group[]): ParseTextBotCommandOutput | null => {
-  const commandPattern = /^txt\s+(.+?)\s+(.*)$/i; // Regex to match command format
+export const parseTextBotCommand = (
+  rawInput: string,
+  groups: Group[]
+): ParseTextBotCommandOutput | null => {
+  const commandPattern = /^txt\s+(.+?)\s+(.*)$/i;
   const match = rawInput.match(commandPattern);
 
-  if (!match) return null; // Return null if the command format is incorrect
+  if (!match) return null;
 
-  const groupPart = match[1].trim().replace(/\s+/g, ' ').toLowerCase(); // Normalize group name
-  const messagePart = match[2].trim(); // Extract message part
+  const groupPart = match[1].trim().replace(/\s+/g, ' ').toLowerCase();
+  const messagePart = match[2].trim();
 
-  // Filter and find matching groups
+  if (!messagePart) return null;
+
+  // Find all groups whose names are prefixes of the group part
   const matchingGroups = groups.filter(group =>
-    group.name.replace(/\s+/g, ' ').toLowerCase() === groupPart
+    groupPart.startsWith(group.name.trim().replace(/\s+/g, ' ').toLowerCase())
   );
 
-  // If no groups match, return null
   if (matchingGroups.length === 0) return null;
 
-  // If multiple groups match, select the longest group name
+  // Select the group with the longest name
   const selectedGroup = matchingGroups.reduce((longest, current) =>
-    current.name.length > longest.name.length ? current : longest
+    current.name.trim().length > longest.name.trim().length ? current : longest
   );
+
+
+  console.log('Matching groups:', matchingGroups);
+  console.log('Selected group:', selectedGroup);
+
 
   return {
     groupId: selectedGroup.id,
-    messageToSend: messagePart
+    messageToSend: messagePart,
   };
 };
+
+
