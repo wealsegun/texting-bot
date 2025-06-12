@@ -45,32 +45,28 @@ export const parseTextBotCommand = (
 
   if (!match) return null;
 
+
   const groupPart = match[1].trim().replace(/\s+/g, ' ').toLowerCase();
   const messagePart = match[2].trim();
 
+
   if (!messagePart) return null;
 
-  // Find all groups whose names are prefixes of the group part
-  const matchingGroups = groups.filter(group =>
-    groupPart.startsWith(group.name.trim().replace(/\s+/g, ' ').toLowerCase())
-  );
+
+  const matchingGroups = groups.filter(group => {
+    if (!group.name) return false;
+    const normalizedGroupName = group.name.trim().replace(/\s+/g, ' ').toLowerCase();
+    return groupPart.startsWith(normalizedGroupName);
+  });
 
   if (matchingGroups.length === 0) return null;
 
-  // Select the group with the longest name
   const selectedGroup = matchingGroups.reduce((longest, current) =>
     current.name.trim().length > longest.name.trim().length ? current : longest
   );
-
-
-  console.log('Matching groups:', matchingGroups);
-  console.log('Selected group:', selectedGroup);
-
 
   return {
     groupId: selectedGroup.id,
     messageToSend: messagePart,
   };
 };
-
-
